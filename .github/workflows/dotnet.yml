@@ -18,23 +18,23 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Restore NuGet packages for main project
-      run: nuget restore RandomNumber2\RandomNumber2.csproj
+      run: nuget restore RandomNumber2/RandomNumber2.csproj
       shell: pwsh
 
     - name: Restore NuGet packages for test project
-      run: nuget restore RandomNumber2.Tests\RandomNumber2.Tests.csproj
+      run: nuget restore RandomNumber2.Test/RandomNumber2.Test.csproj
       shell: pwsh
 
     - name: Build main project
-      run: msbuild RandomNumber2\RandomNumber2.csproj /p:Configuration=Release
+      run: msbuild RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
       shell: pwsh
 
     - name: Build test project
-      run: msbuild RandomNumber2.Tests\RandomNumber2.Tests.csproj /p:Configuration=Release
+      run: msbuild RandomNumber2.Test/RandomNumber2.Test.csproj /p:Configuration=Release
       shell: pwsh
 
     - name: Run MSTest tests
       run: |
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\VSTest.Console.exe" RandomNumber2.Tests\bin\Release\RandomNumber2.Tests.dll
+        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\VSTest.Console.exe" RandomNumber2.Test/bin/Release/RandomNumber2.Test.dll
       shell: pwsh
 
