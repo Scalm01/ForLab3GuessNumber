@@ -17,25 +17,28 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-  - name: Restore NuGet packages for main project
-  run: nuget restore RandomNumber2/RandomNumber2.csproj -SolutionDirectory .
-  shell: pwsh
+    # Restore NuGet packages for main project
+    - name: Restore NuGet packages for main project
+      run: nuget restore RandomNumber2/RandomNumber2.csproj -SolutionDirectory .
+      shell: pwsh
 
-- name: Restore NuGet packages for test project
-  run: nuget restore RandomNumber2.Test/RandomNumber2.Test.csproj -SolutionDirectory .
-  shell: pwsh
+    # Restore NuGet packages for test project
+    - name: Restore NuGet packages for test project
+      run: nuget restore RandomNumber2.Test/RandomNumber2.Test.csproj -SolutionDirectory .
+      shell: pwsh
 
-
+    # Build main project
     - name: Build main project
       run: msbuild RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
       shell: pwsh
 
+    # Build test project
     - name: Build test project
       run: msbuild RandomNumber2.Test/RandomNumber2.Test.csproj /p:Configuration=Release
       shell: pwsh
 
+    # Run MSTest tests
     - name: Run MSTest tests
       run: |
         & "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\VSTest.Console.exe" RandomNumber2.Test/bin/Release/RandomNumber2.Test.dll
       shell: pwsh
-
