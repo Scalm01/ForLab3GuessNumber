@@ -23,12 +23,8 @@ jobs:
     - name: Restore NuGet packages
       run: nuget restore RandomNumber2/RandomNumber2.csproj
 
-    - name: Build solution
+    - name: Build main project
       run: msbuild RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
 
-    - name: Build test project
-      run: msbuild RandomNumber2.Test/RandomNumber2.Test.csproj /p:Configuration=Release
-
-    - name: Run MSTest tests
-      run: msbuild RandomNumber2.Test/RandomNumber2.Test.csproj /p:Configuration=Release /t:VSTest
-      shell: pwsh
+    - name: Run tests
+      run: dotnet test RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release --no-build
