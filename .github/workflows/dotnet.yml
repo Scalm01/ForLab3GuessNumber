@@ -2,43 +2,33 @@ name: .NET Framework CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-    # Restore NuGet packages for main project
-    - name: Restore NuGet packages for main project
-      run: nuget restore RandomNumber2/RandomNumber2.csproj -SolutionDirectory .
-      shell: pwsh
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.2.0
 
-    # Restore NuGet packages for test project
-    - name: Restore NuGet packages for test project
-      run: nuget restore RandomNumber2.Test/RandomNumber2.Test.csproj -SolutionDirectory .
-      shell: pwsh
+    - name: Restore NuGet packages
+      run: nuget restore RandomNumber2/RandomNumber2.csproj
 
-    # Build main project
-    - name: Build main project
+    - name: Build solution
       run: msbuild RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
-      shell: pwsh
 
-    # Build test project
     - name: Build test project
       run: msbuild RandomNumber2.Test/RandomNumber2.Test.csproj /p:Configuration=Release
-      shell: pwsh
 
-    # Run MSTest tests
     - name: Run MSTest tests
-      run: |
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\VSTest.Console.exe" RandomNumber2.Test/bin/Release/RandomNumber2.Test.dll
+      run: msbuild RandomNumber2.Test/RandomNumber2.Test.csproj /p:Configuration=Release /t:VSTest
       shell: pwsh
