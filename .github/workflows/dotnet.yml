@@ -1,0 +1,27 @@
+name: .NET Framework CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Restore NuGet packages
+      run: nuget restore RandomNumber2.sln
+
+    - name: Build solution
+      run: msbuild RandomNumber2.sln /p:Configuration=Release
+
+    - name: Run tests
+      run: vstest.console.exe RandomNumber2.Tests\bin\Release\RandomNumber2.Tests.dll
