@@ -17,13 +17,14 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-    - name: Restore NuGet packages for main project
-      run: nuget restore RandomNumber2/RandomNumber2.csproj
-      shell: pwsh
+  - name: Restore NuGet packages for main project
+  run: nuget restore RandomNumber2/RandomNumber2.csproj -SolutionDirectory .
+  shell: pwsh
 
-    - name: Restore NuGet packages for test project
-      run: nuget restore RandomNumber2.Test/RandomNumber2.Test.csproj
-      shell: pwsh
+- name: Restore NuGet packages for test project
+  run: nuget restore RandomNumber2.Test/RandomNumber2.Test.csproj -SolutionDirectory .
+  shell: pwsh
+
 
     - name: Build main project
       run: msbuild RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
