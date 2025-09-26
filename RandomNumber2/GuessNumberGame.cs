@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-namespace RandomNumber2
+﻿namespace RandomNumber2
 {
+    using System;
+    using System.Collections.Generic;
+
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//   Part of RandomNumber2 project.
+//   Author: [Eric]
+//   Date: [2025]
+// </summary
+// --------------------------------------------------------------------------------------------------------------------
+
+ /// <summary>
+/// Klass som hanterar spelet "Gissa numret".
+/// </summary>
     public class GuessNumberGame
     {
         private int nummerAttGissa; // Det nummer spelaren ska gissa
@@ -16,7 +22,10 @@ namespace RandomNumber2
         private Score gameScore; // Instans av Score som håller spelarens resultat
         private HandleHighScore saveScoreList = new HandleHighScore(); // Instans av HandleHighScore för att spara high scores
 
-        public void StartaSpel()
+/// <summary>
+/// Startar spelet och hanterar spelloopen.
+/// </summary>
+public void StartaSpel()
         {
             bool spela = true;
             while (spela) // Loop för att starta om spelet med en ny spelare varje gång
@@ -61,12 +70,11 @@ namespace RandomNumber2
                         gameScore = new Score
                         {
                             PlayerName = playerName,
-                            Points = antGissningar
+                            Points = antGissningar,
                         };
+
                         // Lägg till den nya poängen med spelarens namn
                         scores.Add(gameScore);
-
-                        
 
                         // Frågar om spelaren vill spela igen
                         Console.WriteLine("Vill du spela igen? (y/n)");
@@ -87,7 +95,6 @@ namespace RandomNumber2
 
                             Console.WriteLine("Tack för att du spelade!");
                             spela = false;
-                            
                         }
 
                         break; // Avsluta omgången om spelaren vill fortsätta
@@ -128,23 +135,30 @@ namespace RandomNumber2
 
             Environment.Exit(0);
         }
-		// test metod som genererar slumpnummer för test av slumping
-		public int GenerateRandomNumber()
-		{
-			Random rnd = new Random();
-			return rnd.Next(1, 101);
-		}
 
-		// test metod som kollar gissning för automatisk testning
-		public bool CheckGuess(int guess, int target)
-		{
-			return guess == target;
-		}
+// test metod som genererar slumpnummer för test av slumping
 
-		public static void StartGame() // Metod för att starta spelet från ett externt anrop
+/// <summary>
+/// Genererar ett slumpmässigt nummer mellan 1 och 100.
+/// </summary>
+/// <returns>
+/// Slumpmässigt tal mellan 1 och 100.
+/// </returns>
+public int GenerateRandomNumber()
         {
-            GuessNumberGame game = new GuessNumberGame();
-            game.StartaSpel();
+            Random rnd = new Random();
+            return rnd.Next(1, 101);
+        }
+
+/// <summary>
+/// Kontrollerar om gissningen är korrekt.
+/// </summary>
+/// <param name="guess">Spelarens gissning.</param>
+/// <param name="target">Numret som ska gissas.</param>
+/// <returns>true om korrekt, annars false.</returns>
+public bool CheckGuess(int guess, int target)
+        {
+            return guess == target;
         }
     }
 }

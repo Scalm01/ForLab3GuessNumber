@@ -1,26 +1,39 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//   Part of RandomNumber2 project.
+//   Author: [Eric]
+//   Date: [2025]
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RandomNumber2
 {
+    /// <summary>
+    /// Hanterar användargränssnittet för spelet, inklusive välkomstmeddelande och highscore-lista.
+    /// </summary>
     public class UI
     {
         private HandleHighScore scoreList; // Instans för att hantera highscore
         private List<Score> scores;        // Lista för poäng
 
-        // Konstruktor
+        /// <summary>
+        /// Initierar en ny instans av <see cref="UI"/>-klassen.
+        /// Hämtar highscore-listan vid start.
+        /// </summary>
         public UI()
         {
             scoreList = new HandleHighScore();
             scores = scoreList.GetHighScores();
         }
 
-        // Metod för att visa välkomstmeddelande och highscore
+        /// <summary>
+        /// Visar välkomstmeddelande och highscore-listan.
+        /// Frågar användaren om de vill spela.
+        /// </summary>
+        /// <returns><c>true</c> om spelaren vill spela, annars <c>false</c>.</returns>
         public bool DrawUI()
         {
             Console.WriteLine("Välkommen till Gissa Nummret 2!");
@@ -38,21 +51,17 @@ namespace RandomNumber2
                     Console.WriteLine($"{score.PlayerName}: {score.Points} gissningar");
                 }
             }
-            Console.Write("Vill du spela? (ja/nej): "); //spela ja eller nej
+
+            Console.Write("Vill du spela? (ja/nej): "); // spela ja eller nej
             string input = Console.ReadLine();
 
             if (input.ToLower() == "ja")
             {
-
                 return true;
-
-                
-
             }
             else
             {
-                return false; 
-                
+                return false;
             }
         }
     }

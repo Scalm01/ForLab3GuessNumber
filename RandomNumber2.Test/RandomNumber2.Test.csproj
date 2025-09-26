@@ -127,6 +127,8 @@
   <ItemGroup>
     <Analyzer Include="..\RandomNumber2\packages\MSTest.Analyzers.3.10.4\analyzers\dotnet\cs\MSTest.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\RandomNumber2\packages\MSTest.Analyzers.3.10.4\analyzers\dotnet\cs\MSTest.Analyzers.dll" />
+    <Analyzer Include="..\RandomNumber2\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\RandomNumber2\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\RandomNumber2\packages\MSTest.TestFramework.3.10.4\build\net462\MSTest.TestFramework.targets" Condition="Exists('..\RandomNumber2\packages\MSTest.TestFramework.3.10.4\build\net462\MSTest.TestFramework.targets')" />

@@ -1,17 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RandomNumber2
 {
+    // --------------------------------------------------------------------------------------------------------------------
+    // <summary>
+    //   Part of RandomNumber2 project.
+    //   Author: [Eric]
+    //   Date: [2025]
+    // </summary
+    // --------------------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Hanterar inläsning och sparning av highscores till fil.
+    /// </summary>
     public class HandleHighScore
     {
         private string filePath = "highscores.txt"; // Filväg för highscore-listan
 
-        // Metod för att hämta highscore-listan från filen
+        /// <summary>
+        /// Hämtar highscore-listan från filen och returnerar en sorterad lista.
+        /// </summary>
+        /// <returns>En lista av <see cref="Score"/> sorterad efter poäng.</returns>
         public List<Score> GetHighScores()
         {
             List<Score> scores = new List<Score>();
@@ -28,20 +39,21 @@ namespace RandomNumber2
                     }
                 }
             }
+
             scores.Sort();
             return scores;
         }
 
-        // Metod för att kontrollera och spara highscore
-        public void CheckAndSaveHighScore(List<Score> scores)
+/// <summary>
+/// Sparar en eller flera highscores till filen.
+/// </summary>
+/// <param name="scores">En lista av <see cref="Score"/> att spara.</param>
+public void CheckAndSaveHighScore(List<Score> scores)
         {
             try
             {
-             
-
-                
                 // Spara highscore-listan till filen
-                using(FileStream file = new FileStream(filePath, FileMode.Append))
+                using (FileStream file = new FileStream(filePath, FileMode.Append))
                 using (StreamWriter writer = new StreamWriter(file))
                 {
                     foreach (var score in scores)
@@ -52,16 +64,14 @@ namespace RandomNumber2
 
                 Console.WriteLine("Highscore sparad!");
             }
-            catch (IOException )
+            catch (IOException)
             {
                 Console.WriteLine($"Ett fel inträffade när highscore skulle sparas");
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Console.WriteLine($"Ett oväntat fel inträffade");
             }
         }
     }
 }
-        
-
