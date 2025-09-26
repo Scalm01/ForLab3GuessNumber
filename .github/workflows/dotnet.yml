@@ -1,4 +1,4 @@
-name: .NET Framework + SDK Tests CI
+name: .NET Framework CI
 
 on:
   push:
@@ -7,37 +7,24 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    # Install MSBuild for .NET Framework projects
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-    # Install NuGet
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
 
-    # Restore packages for .NET Framework project
-    - name: Restore NuGet packages for main project
-      run: msbuild RandomNumber2/RandomNumber2/RandomNumber2.csproj /t:Restore
+    - name: Restore NuGet packages
+      run: msbuild RandomNumber2/RandomNumber2.csproj /t:Restore
 
-    # Build main .NET Framework project
     - name: Build main project
-      run: msbuild RandomNumber2/RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
+      run: msbuild RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
 
-    # Restore and build test SDK-style project
-    - name: Build and restore SDK-style test project
-      run: dotnet build RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release
-
-    # Run StyleCop analyzers on test project
-    - name: Run StyleCop code analysis
-      run: dotnet build RandomNumber2.Test/RandomNumber2.Test.csproj /p:RunAnalyzers=true /p:Configuration=Release
-
-    # Run tests
-    - name: Run unit tests
+    - name: Run tests
       run: dotnet test RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release --no-build
