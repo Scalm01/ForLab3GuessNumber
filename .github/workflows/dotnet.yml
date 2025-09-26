@@ -1,4 +1,4 @@
-name: .NET Framework CI
+name: .NET Framework + SDK Tests CI
 
 on:
   push:
@@ -7,35 +7,37 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
+    # Install MSBuild for .NET Framework projects
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
+    # Install NuGet
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
 
-    # Restore huvudprojekt (Classic .NET Framework)
-    - name: Restore NuGet packages (Main)
+    # Restore packages for .NET Framework project
+    - name: Restore NuGet packages for main project
       run: msbuild RandomNumber2/RandomNumber2/RandomNumber2.csproj /t:Restore
 
-    # Bygg huvudprojekt
+    # Build main .NET Framework project
     - name: Build main project
       run: msbuild RandomNumber2/RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
 
-    # Bygg testprojekt (SDK-style)
-    - name: Build test project
-      run: dotnet build RandomNumber2/RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release
+    # Restore and build test SDK-style project
+    - name: Build and restore SDK-style test project
+      run: dotnet build RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release
 
-    # Kör tester
+    # Run StyleCop analyzers on test project
+    - name: Run StyleCop code analysis
+      run: dotnet build RandomNumber2.Test/RandomNumber2.Test.csproj /p:RunAnalyzers=true /p:Configuration=Release
+
+    # Run tests
     - name: Run unit tests
-      run: dotnet test RandomNumber2/RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release --no-build
-
-    # Optional: StyleCop analys
-    - name: Run StyleCop analysis
-      run: dotnet build RandomNumber2/RandomNumber2.Test/RandomNumber2.Test.csproj /p:TreatWarningsAsErrors=true
+      run: dotnet test RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release --no-build
