@@ -1,0 +1,10 @@
+flowchart TD
+    A[Code Commit/Push] --> B[Set up job]
+    B --> C[Checkout Code]
+    C --> D[Setup MSBuild]
+    D --> E[Setup NuGet]
+    E --> F[Restore NuGet Packages]
+    F --> G[Build Main Project]
+    G --> H[Run Test]
+    H --> I[Post Checkout Code]
+    I --> J[Complete Job]
