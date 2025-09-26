@@ -1,6 +1,22 @@
-# Visual Studio cache/filer
+# Visual Studio
 .vs/
-bin/
-obj/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+
+# Build Folders
+bin/
+obj/
+
+# Test Results
+TestResults/
+*.trx
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# StyleCop & EditorConfig
+# Inga filer ignoreras här, vi vill behålla stylecop.json och .editorconfig
