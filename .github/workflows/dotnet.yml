@@ -11,7 +11,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
+<<<<<<< HEAD
       # 1. Hämta koden
+=======
+      # 1. Checkout code
+>>>>>>> 9a1afae (Update GitHub Actions workflow for .NET Framework 4.8 and SDK-style tests)
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -23,6 +27,7 @@ jobs:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.2.0
 
+<<<<<<< HEAD
       # 4. Restore NuGet packages för lösningen
       - name: Restore NuGet packages
         run: nuget restore RandomNumber2/RandomNumber2/RandomNumber2.sln
@@ -32,5 +37,16 @@ jobs:
         run: msbuild RandomNumber2/RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
 
       # 6. Kör testprojektet (SDK-stil)
+=======
+      # 4. Restore NuGet packages för huvudprojektet
+      - name: Restore NuGet packages
+        run: nuget restore RandomNumber2/RandomNumber2/RandomNumber2.csproj
+
+      # 5. Build main project med MSBuild
+      - name: Build main project
+        run: msbuild RandomNumber2/RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
+
+      # 6. Run tests på SDK-stil testprojekt
+>>>>>>> 9a1afae (Update GitHub Actions workflow for .NET Framework 4.8 and SDK-style tests)
       - name: Run tests
         run: dotnet test RandomNumber2/RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release --no-build
