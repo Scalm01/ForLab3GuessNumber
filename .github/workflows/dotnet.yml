@@ -38,4 +38,4 @@ jobs:
 
     # Optional: StyleCop analys
     - name: Run StyleCop analysis
-      run: dotnet build RandomNumber2/RandomNumber2.Test/RandomNumber2.Test.csproj /p:TreatWarningsAsErrors=false
+      run: dotnet build RandomNumber2/RandomNumber2.Test/RandomNumber2.Test.csproj /p:TreatWarningsAsErrors=true
