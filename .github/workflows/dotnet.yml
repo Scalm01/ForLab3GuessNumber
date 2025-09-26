@@ -20,11 +20,14 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
 
+    # Restore packages for solution (both projects)
     - name: Restore NuGet packages
       run: nuget restore RandomNumber2.sln
 
+    # Build main project with MSBuild
     - name: Build main project
       run: msbuild RandomNumber2/RandomNumber2.csproj /p:Configuration=Release
 
+    # Run SDK-style tests without rebuilding (already built)
     - name: Run tests
       run: dotnet test RandomNumber2.Test/RandomNumber2.Test.csproj --configuration Release --no-build
