@@ -19,7 +19,7 @@ graph TB
         RI["ingest.js<br/>POST /ingest"]
     end
     
-    subgraph LOGIC["Business Logic / Services"]
+    subgraph LOGIC["Services"]
         SM["sessionManager.js<br/>startSession()<br/>touchSessionActivity()<br/>confirmAwake()<br/>endActiveSession()"]
         AD["adapter.js<br/>normalizePackets()"]
     end
